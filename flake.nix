@@ -1,5 +1,5 @@
 {
-  description = "A template for Nix based C++ project setup.";
+  description = "A simple window manager by Dr.Nekoma.";
 
   inputs = {
     # Pointing to the current stable release of nixpkgs. You can
@@ -34,7 +34,7 @@
   in {
     devShells.default = pkgs.mkShell rec {
       # Update the name to something that suites your project.
-      name = "my-c++-project";
+      name = "nwm";
 
       packages = with pkgs; [
         # Development Tools
@@ -49,7 +49,7 @@
         spdlog
         abseil-cpp
 
-        xorg.libX11
+        xorg.libX11.dev
       ];
 
       # Setting up the environment variables you need during

@@ -1,6 +1,6 @@
-add_executable(what_time)
-target_sources(what_time PRIVATE what_time.cc)
-target_link_libraries(what_time PRIVATE absl::time spdlog::spdlog)
+add_executable(nwm)
+target_sources(nwm PRIVATE nwm.cc)
+target_link_libraries(nwm PRIVATE absl::time spdlog::spdlog X11)
 
 add_library(simple)
 target_sources(simple

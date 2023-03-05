@@ -87,7 +87,7 @@ if(ENABLE_INSTALL)
         NO_CHECK_REQUIRED_COMPONENTS_MACRO)
 
     install(
-        TARGETS what_time simple
+        TARGETS nwm simple
         EXPORT ${PROJECT_NAME}_Targets
         INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 

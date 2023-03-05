@@ -6,13 +6,13 @@
 , xorg }:
 
 llvmPackages_11.stdenv.mkDerivation rec {
-  pname = "cpp-examples";
+  pname = "nwm";
   version = "0.1.0";
   
   src = ./.;
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ spdlog abseil-cpp xorg.libX11 ];
+  buildInputs = [ spdlog abseil-cpp xorg.libX11.dev ];
 
   cmakeFlags = [
     "-DENABLE_TESTING=OFF"
