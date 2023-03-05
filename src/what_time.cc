@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../include/third-party/include/X11/Xlib.h"
+#include "X11/Xlib.h"
 
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 
