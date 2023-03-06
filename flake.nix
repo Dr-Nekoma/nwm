@@ -31,8 +31,6 @@
             gcc
             xorg.libX11
             xorg.libX11.dev
-            xorg.libXft
-            xorg.libXinerama            
           ];
         };
       });
