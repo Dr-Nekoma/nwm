@@ -13,16 +13,19 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit config overlays system; };
-        packageName = "nwm";
         config = {};
         overlays = [];
       in {
-        packages.${packageName} = pkgs.${packageName};
+        packages.default = pkgs.callPackage ./default.nix {};
 
         devShell = pkgs.mkShell {
           buildInputs = with pkgs; [
             just
             gcc
+            xorg.libX11
+            xorg.libX11.dev
+            xorg.libXft
+            xorg.libXinerama            
           ];
         };
       });
