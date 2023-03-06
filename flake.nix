@@ -10,13 +10,20 @@
   };
 
   outputs = { flake-utils, nixpkgs, self, ... }:
-    flake-utils.lib.eachDefaultSystem (system:
+    # Add the system/architecture you would like to support here.
+    flake-utils.lib.eachSystem [
+      "x86_64-linux"
+      "i686-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+    ] (system: 
       let
         pkgs = import nixpkgs { inherit config overlays system; };
+        packageName = "nwm";
         config = {};
         overlays = [];
       in {
-        packages.default = pkgs.callPackage ./default.nix {};
+        defaultPackage = pkgs.callPackage ./default.nix {};
 
         devShell = pkgs.mkShell {
           buildInputs = with pkgs; [
