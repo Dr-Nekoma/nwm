@@ -1,31 +1,20 @@
-{ lib
-, llvmPackages_11
-, cmake
-, spdlog
-, abseil-cpp
-, xorg }:
+{ lib, stdenv, libX11 }:
 
-llvmPackages_11.stdenv.mkDerivation rec {
-  pname = "nwm";
-  version = "0.1.0";
-  
-  src = ./.;
+stdenv.mkDerivation rec {
+  name = "nwm";
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ spdlog abseil-cpp xorg.libX11.dev ];
+  src = ./src;
 
-  cmakeFlags = [
-    "-DENABLE_TESTING=OFF"
-    "-DENABLE_INSTALL=ON"
-  ];
+  buildInputs = [ libX11 ];
 
-  meta = with lib; {
-    homepage = "https://github.com/nixvital/nix-based-cpp-starterkit";
-    description = ''
-      A template for Nix based C++ project setup.";
-    '';
-    licencse = licenses.mit;
-    platforms = with platforms; linux ++ darwin;
-    maintainers = [ maintainers.breakds ];    
-  };
+  dontConfigure = true;
+
+  buildPhase = ''
+    $CC -Wall -Wextra -std=c11 -pedantic -I${libX11}/include nwm.c -L${libX11}/lib -lX11 -o nwm
+  '';
+
+  installPhase = ''
+    mkdir -p $out/bin
+    mv nwm $out/bin/nwm
+  '';
 }
