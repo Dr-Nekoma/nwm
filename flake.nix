@@ -31,6 +31,8 @@
             clang
             xorg.libX11
             xorg.libX11.dev
+            dmenu
+            emacs
           ];
         };
       });

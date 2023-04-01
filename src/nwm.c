@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "X11/Xlib.h"
 
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -16,14 +17,22 @@ int main(void) {
   XGrabKey(dpy, XKeysymToKeycode(dpy, XStringToKeysym("F1")), Mod1Mask, DefaultRootWindow(dpy), True, GrabModeAsync, GrabModeAsync);
   XGrabButton(dpy, 1, Mod1Mask, DefaultRootWindow(dpy), True, ButtonPressMask | ButtonReleaseMask | PointerMotionMask, GrabModeAsync, GrabModeAsync, None, None);
   XGrabButton(dpy, 3, Mod1Mask, DefaultRootWindow(dpy), True, ButtonPressMask | ButtonReleaseMask | PointerMotionMask, GrabModeAsync, GrabModeAsync, None, None);
+  XGrabKey(dpy, XKeysymToKeycode(dpy, XStringToKeysym("e")), Mod1Mask, DefaultRootWindow(dpy), True, GrabModeAsync, GrabModeAsync);
+  XGrabKey(dpy, XKeysymToKeycode(dpy, XStringToKeysym("d")), Mod1Mask, DefaultRootWindow(dpy), True, GrabModeAsync, GrabModeAsync);
 
   start.subwindow = None;
   for (;;)
   {
     XNextEvent(dpy, &ev);
-    if (ev.type == KeyPress && ev.xkey.subwindow != None)
-      XRaiseWindow(dpy, ev.xkey.subwindow);
-    else if (ev.type == ButtonPress && ev.xbutton.subwindow != None) {
+    if (ev.type == KeyPress && ev.xkey.subwindow != None){
+      if (ev.xkey.keycode == XKeysymToKeycode(dpy, XStringToKeysym("F1"))){
+        XRaiseWindow(dpy, ev.xkey.subwindow);
+      }else if(ev.xkey.keycode == XKeysymToKeycode(dpy, XStringToKeysym("e"))){
+        system("emacs &");
+      }else if(ev.xkey.keycode == XKeysymToKeycode(dpy, XStringToKeysym("d"))){
+        system("dmenu_run");
+      }
+    }else if (ev.type == ButtonPress && ev.xbutton.subwindow != None) {
       XGetWindowAttributes(dpy, ev.xbutton.subwindow, &attr);
       start = ev.xbutton;
     }
