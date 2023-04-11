@@ -1,11 +1,11 @@
-{ lib, stdenv, libX11 }:
+{ lib, stdenv, libX11, clang-tools, llvmPackages_latest }:
 
 stdenv.mkDerivation rec {
   name = "nwm";
 
   src = ./src;
 
-  buildInputs = [ libX11 ];
+  buildInputs = [ libX11 clang-tools llvmPackages_latest.libstdcxxClang llvmPackages_latest.libcxx ];
 
   dontConfigure = true;
 

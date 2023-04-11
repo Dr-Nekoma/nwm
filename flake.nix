@@ -1,5 +1,5 @@
 {
-  description = "A very basic flake";
+  description = "Nekoma Window Manager";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -23,17 +23,23 @@
         config = {};
         overlays = [];
       in {
-        defaultPackage = pkgs.callPackage ./default.nix {};
 
         devShell = pkgs.mkShell {
           buildInputs = with pkgs; [
             just
-            clang
+            gcc
             xorg.libX11
             xorg.libX11.dev
             dmenu
             emacs
+            # Headers not found
+            clang-tools
+            # LSP std
+            llvmPackages_latest.libstdcxxClang
+            # stdlib for cpp
+            llvmPackages_latest.libcxx
           ];
         };
+        defaultPackage = pkgs.callPackage ./default.nix {};
       });
 }
